@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include "fibonacci.c"
 #include "movestack.c"
 #include <X11/XF86keysym.h>
 /* appearance */
@@ -54,9 +55,10 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+    { "[\\]",     dwindle }, /* first entry is default */
+    { "[]=",      tile },    
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+    { "[M]",      monocle },
 };
 
 /* key definitions */
