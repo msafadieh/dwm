@@ -2,17 +2,16 @@
 #include "movestack.c"
 #include <X11/XF86keysym.h>
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int sidepad            = 10;       /* vertical padding of bar */
 static const int vertpad            = 5;       /* horizontal padding of bar */
-static const int showsystray        = 1;     /* 0 means no systray */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int gappx              = 5;       
+static const int gappx              = 20;       
 static const char *fonts[]          = { "Iosevka Term:style=Medium,Regular:size=11:antialias=true:autohint=true" };
 static const char dmenufont[]       = "Iosevka Term:style=Medium,Regular:size=11:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
@@ -41,11 +40,11 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     iscentered     isfloating   monitor */
-    { "Tor Browser", NULL,    NULL,       0,            1,              1,          -1 },
-    { "ncmpcpp",     NULL,    NULL,       0,            1,              1,          -1 },
-    { "Gcr-prompter", NULL,   NULL,       0,            1,              1,          -1 },
-    { "trayer",     NULL,     NULL,       0x100,        0,              1,          -1 },
+	/* class          instance    title       tags mask     iscentered     isfloating   monitor */
+    { "Tor Browser",  NULL,       NULL,       0,            1,              1,          -1 },
+    { "st-center",    NULL,       NULL,       0,            1,              1,          -1 },
+    { "Gcr-prompter", NULL,       NULL,       0,            1,              1,          -1 },
+    { "trayer",       NULL,       NULL,       0x100,        0,              1,          -1 },
 };
 
 /* layout(s) */
@@ -65,7 +64,7 @@ static const Layout layouts[] = {
 #define ALTKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ ALTKEY,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \ 
+	{ ALTKEY,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
@@ -106,6 +105,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = privbrowsercmd } },
 	{ MODKEY,                       XK_m,      spawn,          {.v = dpsetcmd } },
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = ncmpcppcmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
@@ -133,6 +134,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Right,  viewtoright,    {0} },
 	{ MODKEY|ShiftMask,             XK_Left,   tagtoleft,      {0} },
 	{ MODKEY|ShiftMask,             XK_Right,  tagtoright,     {0} },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ 0,                            XK_VolU,   spawn,          { .v = volupcmd } },
 	{ 0,                            XK_VolD,   spawn,          { .v = voldowncmd } },
 	{ 0,                            XK_VolM,   spawn,          { .v = volmutecmd } },
