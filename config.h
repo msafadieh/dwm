@@ -13,8 +13,8 @@ static const int vertpad            = 5;       /* horizontal padding of bar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int gappx              = 10;       
-static const char *fonts[]          = { "Iosevka Term:style=Medium,Regular:size=11:antialias=true:autohint=true" };
-static const char dmenufont[]       = "Iosevka Term:style=Medium,Regular:size=11:antialias=true:autohint=true";
+static const char dmenufont[]       = "Inconsolata Nerd Font:style=Regular:size=12:antialias=true:autohint=true";
+static const char *fonts[]          = { dmenufont };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -34,7 +34,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" };
+static const char *tags[] = { "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩" };
 
 static const Rule rules[] = {
 	/* xprop(1):
