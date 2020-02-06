@@ -1,7 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-#include "fibonacci.c"
-#include "movestack.c"
-#include <X11/XF86keysym.h>
 /* appearance */
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -53,6 +50,7 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
+#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
     { "[\\]",     dwindle }, /* first entry is default */
@@ -101,6 +99,10 @@ static const char *loficmd[] = { "lofi", NULL };
 #define XK_BklD XF86XK_MonBrightnessDown
 #define XK_Off XF86XK_PowerOff
 
+
+#include <X11/XF86keysym.h>
+#include "movestack.c"
+#include "selfrestart.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
@@ -154,6 +156,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
