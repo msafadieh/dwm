@@ -55,7 +55,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
     { "[\\]",     dwindle }, /* first entry is default */
     { "[]=",      tile },    
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+    { "><>",      NULL },    /* no layout function means floating behavior */
     { "[M]",      monocle },
 };
 
@@ -105,48 +105,72 @@ static const char *loficmd[] = { "lofi", NULL };
 #include "selfrestart.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
+
+	/* app launchers */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = privbrowsercmd } },
-	{ MODKEY,                       XK_m,      spawn,          {.v = dpsetcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = ncmpcppcmd } },
 	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = loficmd } },
+
+	/* display management */
 	{ 0,                            XK_Dp,     spawn,          {.v = dpsetcmd } },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_m,      spawn,          {.v = dpsetcmd } },
+
+	/* volume management */
+	{ 0,                            XK_VolU,   spawn,          { .v = volupcmd } },
+	{ 0,                            XK_VolD,   spawn,          { .v = voldowncmd } },
+	{ 0,                            XK_VolM,   spawn,          { .v = volmutecmd } },
+
+	/* brightness management */
+	{ 0,                            XK_BklU,   spawn,          { .v = brupcmd } },
+	{ 0,                            XK_BklD,   spawn,          { .v = brdowncmd } },
+
+	/* power management */
+	{ 0,                            XK_Off,    spawn,          { .v = powermancmd } },
+	{ MODKEY,                       XK_x,      spawn,          { .v = powermancmd } },
+
+	/* screenshot */
+	{ 0,                            XK_Print,  spawn,          { .v = screenshotcmd } },
+	{ MODKEY,                       XK_p,      spawn,          { .v = screenshotcmd } },
+
+	/* layout management */
+	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,			XK_f,	   setlayout,	   {.v = &layouts[3]  } },
+	{ MODKEY|ShiftMask,		XK_f,	   setlayout,	   {.v = &layouts[2]  } },
+	
+	/* client management */
+	{ MODKEY,                       XK_z,      zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },	
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+
+	/* stack management */
+	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+
+	/* monitor management */
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+
+	/* tag management */
+	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_Left,   viewtoleft,     {0} },
 	{ MODKEY,                       XK_Right,  viewtoright,    {0} },
 	{ MODKEY|ShiftMask,             XK_Left,   tagtoleft,      {0} },
 	{ MODKEY|ShiftMask,             XK_Right,  tagtoright,     {0} },
-	{ 0,                            XK_VolU,   spawn,          { .v = volupcmd } },
-	{ 0,                            XK_VolD,   spawn,          { .v = voldowncmd } },
-	{ 0,                            XK_VolM,   spawn,          { .v = volmutecmd } },
-	{ 0,                            XK_BklU,   spawn,          { .v = brupcmd } },
-	{ 0,                            XK_BklD,   spawn,          { .v = brdowncmd } },
-	{ 0,                            XK_Off,    spawn,          { .v = powermancmd } },
-	{ MODKEY,                       XK_x,      spawn,          { .v = powermancmd } },
-	{ 0,                            XK_Print,  spawn,          { .v = screenshotcmd } },
-	{ MODKEY,                       XK_p,      spawn,          { .v = screenshotcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -156,6 +180,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+
+	/* restart/quit */
 	{ MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
