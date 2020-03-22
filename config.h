@@ -5,19 +5,19 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int sidepad            = 10;       /* vertical padding of bar */
-static const int vertpad            = 5;       /* horizontal padding of bar */
+static const int sidepad            = 0;       /* vertical padding of bar */
+static const int vertpad            = 0;       /* horizontal padding of bar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int gappx              = 10;       
-static const char dmenufont[]       = "Inconsolata Nerd Font:style=Regular:size=12:antialias=true:autohint=true";
+static const char dmenufont[]       = "Inconsolata Nerd Font:style=Regular:size=14:antialias=true:autohint=true";
 static const char *fonts[]          = { dmenufont };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_purple[]      = "#4c2462";
-static const unsigned int baralpha = 0xb8;
+static const unsigned int baralpha = 0xff;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
